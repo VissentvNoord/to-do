@@ -75,6 +75,10 @@ class Priority{
         this.name = name;
         this.index = index;
     }
+
+    get Name(){
+        return this.name;
+    }
 }
 
 const priority = {

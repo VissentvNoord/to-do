@@ -4,7 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     index: './src/index.js',
-    objects: './src/scripts/ClassManager.js'
+    objects: './src/scripts/ClassManager.js',
+    logger: './src/scripts/logger.js',
+    displayController: './src/scripts/DisplayController.js'
   },
   output: {
     filename: '[name].main.js',

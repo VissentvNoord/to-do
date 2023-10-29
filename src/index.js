@@ -1,16 +1,53 @@
+import LogMessage from "./scripts/logger";
 import { priority, Project, Task } from "./scripts/ClassManager";
+import { projectDisplayer } from "./scripts/DisplayController";
+import './styles/main.css';
 
-const testProject = new Project("Test project");
+const projectManager = (function(){
+    let projectList = [];
 
-const newTask = new Task("A default task");
+    const Init = function(){
+        if(projectList.length < 1){
+            CreateProject("Default project");
+        }
+    }
 
-testProject.AddTask(newTask);
+    const CreateProject = function(projectName) {
+        const newProject = new Project(projectName);
+        projectList.push(newProject);
 
-const newTasks = [new Task("Task 1"), new Task("Task 2")];
-newTasks[0].Done = true;
+        LogMessage("Created new project with name: " + projectName);
 
-testProject.Tasks = newTasks;
-testProject.SetDescription("A nice description");
-testProject.SetPriority(priority.low);
+        return newProject;
+    }
 
-console.log(testProject.Tasks);
+    const GetProjectList = () => projectList;
+
+    return{Init, CreateProject, GetProjectList};
+})();
+
+const taskManager = (function(){
+
+    const CreateTask = function(project, taskName){
+        const newTask = new Task(taskName);
+        project.AddTask(newTask);
+        newTask.SetPriority(priority.low);
+        LogMessage("Created new task with name: " + taskName);
+        return newTask;
+    }
+
+    return{CreateTask};
+})();
+
+function InitializePage(){
+    projectManager.Init();
+    projectManager.CreateProject("Another test project");
+
+    const project = projectManager.GetProjectList()[0];
+    taskManager.CreateTask(project, "Default task");
+
+    projectDisplayer.loadProjects(projectManager.GetProjectList());
+    projectDisplayer.loadTasks(project);
+}
+
+InitializePage();

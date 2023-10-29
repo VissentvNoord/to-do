@@ -1,0 +1,47 @@
+@import 'projects.css';
+@import 'tasks.css';
+
+html, body{
+    height: 100%;
+}
+
+body{
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+}
+
+#content{
+    text-overflow: ellipsis;
+    display: grid;
+    grid-template-columns: .3fr 1fr;
+    grid-template-rows: .1fr 1fr;
+
+    height: 100%;
+    margin: 10px;
+    max-height: 800px;
+    max-width: 1200px;
+    min-width: 800px;
+    min-height: 500px;
+
+    justify-self: center;
+    align-self: center;
+}
+
+#content > *{
+    border-radius: 25px;
+}
+
+#projects, #tasks{
+    padding: 20px;
+}
+
+#hidden{
+    visibility: collapse;
+    transition: visibility .5s ease-in;
+}
+
+#shown{
+    visibility: visible;
+    transition: visibility .5s ease-out;
+}
