@@ -7,16 +7,38 @@ const projectManager = (function(){
     let projectList = [];
 
     const Init = function(){
-        if(projectList.length < 1){
+        const savedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
+
+        if(savedProjects.length <= 0){
             CreateProject("Default board");
+            return;
         }
+        
+        for(let i = 0; i < savedProjects.length; i++){
+            let projectData = savedProjects[i];
+            let savedProject = new Project(projectData.name);
+            savedProject.SetDescription(projectData.description);
+            savedProject.SetPriority(projectData.priority);
+            LogMessage(savedProject);
+
+            projectList.push(savedProject);
+        }
+
+        LogMessage(savedProjects);
+    }
+
+    const SaveProjects = function(){
+        localStorage.setItem("projects", JSON.stringify(projectList));
     }
 
     const CreateProject = function(projectName) {
         const newProject = new Project(projectName);
         projectList.push(newProject);
 
+        LogMessage(projectList);
+
         LogMessage("Created new project with name: " + projectName);
+        SaveProjects();
         return newProject;
     }
 
@@ -42,13 +64,6 @@ function InitializePage(){
     projectManager.Init();
 
     const project = projectManager.GetProjectList()[0];
-    taskManager.CreateTask(project, "Default task");
-    taskManager.CreateTask(project, "Default task");
-    taskManager.CreateTask(project, "Default task");
-    taskManager.CreateTask(project, "Default task");
-    taskManager.CreateTask(project, "Default task");
-    taskManager.CreateTask(project, "Default task");
-    taskManager.CreateTask(project, "Default task");
 
     projectDisplayer.loadProjects(projectManager.GetProjectList());
     projectDisplayer.loadTasks(project);
