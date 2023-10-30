@@ -7,15 +7,27 @@
   <script defer src="index.main.js"></script><script defer src="objects.main.js"></script><script defer src="logger.main.js"></script><script defer src="displayController.main.js"></script></head>
   <body>
         <div id="content">
-          <h1 id="projectsheader">Projects</h1>
-          <h1 id="tasksheader">Tasks</h1>
-          <div id="projects">
 
+          <div id="projects">
+            <div id="projectheader"><h3>Boards</h3><button id="addproject">+</button></div>
+            <div id="projectlist"></div>
           </div>
 
-          <di id="tasks">
+          <div id="tasks">
+            <div id="tasksheader"><h1>Board name</h1></div>
+            <div id="tasklist"></div>
+          </div>
+        </div>
 
-          </di>
+        <div class="addwindow hidden">
+          <h3>New board</h3>
+          <form id="projectform">
+            <label for="bname">Name:</label>
+            <input type="text" id="bname" name="bname">
+            <label for="bdesc">Description:</label>
+            <input type="text" id="bdesc" name="bdesc">
+            <input type="submit" id="submit" name="submit">
+          </form>
         </div>
   </body>
 </html>

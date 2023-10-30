@@ -1,6 +1,6 @@
 import LogMessage from "./scripts/logger";
 import { priority, Project, Task } from "./scripts/ClassManager";
-import { projectDisplayer } from "./scripts/DisplayController";
+import { projectDisplayer, buttonEvents } from "./scripts/DisplayController";
 import './styles/main.css';
 
 const projectManager = (function(){
@@ -8,7 +8,7 @@ const projectManager = (function(){
 
     const Init = function(){
         if(projectList.length < 1){
-            CreateProject("Default project");
+            CreateProject("Default board");
         }
     }
 
@@ -17,7 +17,6 @@ const projectManager = (function(){
         projectList.push(newProject);
 
         LogMessage("Created new project with name: " + projectName);
-
         return newProject;
     }
 
@@ -41,13 +40,35 @@ const taskManager = (function(){
 
 function InitializePage(){
     projectManager.Init();
-    projectManager.CreateProject("Another test project");
 
     const project = projectManager.GetProjectList()[0];
+    taskManager.CreateTask(project, "Default task");
+    taskManager.CreateTask(project, "Default task");
+    taskManager.CreateTask(project, "Default task");
+    taskManager.CreateTask(project, "Default task");
+    taskManager.CreateTask(project, "Default task");
+    taskManager.CreateTask(project, "Default task");
     taskManager.CreateTask(project, "Default task");
 
     projectDisplayer.loadProjects(projectManager.GetProjectList());
     projectDisplayer.loadTasks(project);
 }
 
+function SetupForms(){
+    let addProjectForm = document.getElementById('projectform');
+    addProjectForm.addEventListener("submit", (e) =>{
+        e.preventDefault();
+
+        let boardName = document.getElementById('bname').value;
+        if(boardName == "")
+            return;
+
+        projectManager.CreateProject(boardName);
+        buttonEvents.hideAddProjectPanel();
+
+        projectDisplayer.loadProjects(projectManager.GetProjectList());
+    });
+}
+
 InitializePage();
+SetupForms();

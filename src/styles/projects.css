@@ -6,23 +6,50 @@
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 50px;
-
-    gap: 10px
+    grid-template-rows: 50px 1fr;
+    justify-content: center;
 }
 
-#projects > button{
-    border-radius: 25px;
+#projectheader{
+    display: flex;
+    align-items: center;
+
+    padding-left: 20px;
+
+    box-shadow: 0px 1px 1px black;
+}
+
+#projectlist > div{
+    display: flex;
+    align-items: center;
+
+    padding-left: 20px;
+}
+
+#addproject{
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+#projectlist > button{
     background-color: transparent;
     border: none;
 
     text-align: left;
+    padding-left: 20px;
 
     transition: box-shadow .15s ease-in-out;
 }
 
-#projects > button:hover{
+#projectlist > button:hover{
     box-shadow: 0px 0px 5px rgba(34,34,34,0.6);
 
     transition: box-shadow .15s ease-in;
+}
+
+#projectlist{
+    display: grid;
+
+    grid-template-columns: 1fr;
+    grid-auto-rows: 50px;
 }
